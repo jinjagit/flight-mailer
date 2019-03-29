@@ -1,0 +1,81 @@
+<% provide(:title, 'Find a Flight') %>
+<h1 style="float:center;margin: 40px 0px 0px 36px;">Find a Flight</h1>
+<div class="box">
+  <div style="margin:5%;">
+    <%= form_for :find_flights, url: flights_path, method: :get do |f| %>
+    <div style="display:inline-block;width:20%;"></div>
+    <div style="display:inline-block;width:20%;">
+      <%= f.label :from, 'From' %>
+      <%= f.collection_select :from, Airport.all, :id, :name,
+        selected: !@flights_found.blank? && @flights_found.first.from.id %>
+      <%= f.label :to, 'To' %>
+      <%= f.collection_select :to, Airport.all, :id, :name,
+        selected: !@flights_found.blank? && @flights_found.first.to.id %>
+    </div>
+    <div style="display:inline-block;width:20%;"></div>
+    <div style="display:inline-block;width:20%;">
+      <%= f.label :passenger_count, 'Passengers' %>
+      <%= f.select :passenger_count, 1..5,
+          selected: !@flights_found.blank? && @passenger_count %>
+      <%= f.label :date, 'Date' %>
+      <%= f.date_field :date, min: Date.today + 1, style: "width:100%;", class: "field",
+          value: (!@flights_found.blank? && @date) || (@flights_found.blank? && Date.today + 1) %>
+    </div>
+      <h5 style="width:30%;margin-left:35%;"><%= f.submit "find flights", class: "Button" %></h5>
+    <% end %>
+
+    <% if flash[:error_from_to] == true %>
+      <h5 style="text-align:center;color:red;"><%= "Error! 'From' and 'To' cannot be identical." %></h5>
+    <% end %>
+    <% if flash[:error_no_date] == true %>
+      <h5 style="text-align:center;color:red;"><%= "Error! Date must be selected." %></h5>
+    <% end %>
+    <% if flash[:error_select] == true %>
+      <h5 style="text-align:center;color:red;"><%= "Error! No flight selected." %></h5>
+    <% end %>
+
+    <% unless @flights_found.blank? %>
+      <%= form_for :flight_select, url: new_booking_path, method: :get do |f| %>
+      <% i = 0 %>
+      <% background = Proc.new { |i| i % 2 == 0 ? "data_a" : "data_b"} %>
+      <% bckgd_select = Proc.new { |i| i % 2 == 0 ? "select_a" : "select_b"} %>
+      <h5 style="text-align:center;"><%= @flights_found.count %> flights found (select one):</h5>
+      <table>
+        <tbody>
+            <tr>
+              <td class="col_name_a">flight:</td>
+              <td class="col_name_b">from:</td>
+              <td class="col_name_a">to:</td>
+              <td class="col_name_b">duration:</td>
+              <td class="col_name_a">departure:</td>
+              <td class="col_name_b">arrival:</td>
+              <td style="background-color:yellow;text-align:center;">select:</td>
+            </tr>
+          <% @flights_found.each do |flight| %>
+          <% i += 1 %>
+            <tr>
+              <td class="<%= background.call(i) %>"><%= flight.code %></td>
+              <td class="<%= background.call(i + 1) %>"><%= flight.from.name %></td>
+              <td class="<%= background.call(i) %>"><%= flight.to.name %></td>
+              <td class="<%= background.call(i + 1) %>"><%= flight.duration %></td>
+              <td class="<%= background.call(i) %>"><%= flight.departure %></td>
+              <td class="<%= background.call(i + 1) %>"><%= flight.arrival %></td>
+              <td class="<%= bckgd_select.call(i) %>"><%= f.radio_button :flight_id, flight.id %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= hidden_field_tag :passenger_count, @passenger_count %>
+      <%= hidden_field_tag :flight_date, @date %>
+      <h5 style="width:30%;margin:5% 35% 0% 35%;"><%= f.submit "select flight", class: "Button" %></h5>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div id="icon_div">
+  <div style="width:50px;margin:auto" title="view code on GitHub">
+    <a href="https://github.com/jinjagit/flight-booker">
+    <%= image_tag("github_icon.png", :alt => "GitHub icon", id: "github_icon") %>
+    </a>
+  </div>
+</div>

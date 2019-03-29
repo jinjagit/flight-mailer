@@ -1,0 +1,23 @@
+<% unless flash[:notice].blank? %>
+  <h3 class="booking-flash" style="text-align:center;"><%=flash[:notice]%></h3>
+<% end %>
+
+  <% @bookings.each do |booking| %>
+    <% @flight = Flight.find_by(id: booking.flight_id) %>
+    <div class="box" style="width:500px;">
+      <div style="display:inline-block;width:20%;"></div>
+        <div style="display:inline-block;width:60%;">
+        <h5 style="margin-top:7%;">Booking reference: <%= "DFBN" + booking.id.to_s %></h5>
+        <h5>Passenger: <%= booking.passenger.name %></h5>
+        <h5>Departure from: <%= @flight.from.name %></h5>
+        <h5>Destination: <%= @flight.to.name %></h5>
+        <h5>Departure date: <%= booking.date %></h5>
+        <h5>Departure time: <%= @flight.departure %></h5>
+        <h5>Arrival time: <%= @flight.arrival %></h5>
+        <h5 style="margin-bottom:5%;">Flight duration: <%= @flight.duration %></h5>
+        </div>
+      </div>
+    <br>
+  <% end %>
+
+<h5 style="text-align:center;"><%= link_to("View all bookings", bookings_path) %></h5>

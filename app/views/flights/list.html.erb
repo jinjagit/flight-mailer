@@ -1,0 +1,31 @@
+<% i = 0 %>
+<% background = Proc.new { |i| i % 2 == 0 ? "data_a" : "data_b"} %>
+<% provide(:title, 'All Flights') %>
+<h1 style="float:center;margin: 40px 0px 0px 36px;">All Daily Flights</h1>
+<div class="box">
+  <div class="table_spacer">
+    <table>
+      <tbody>
+          <tr>
+            <td class="col_name_a">flight:</td>
+            <td class="col_name_b">from:</td>
+            <td class="col_name_a">to:</td>
+            <td class="col_name_b">duration:</td>
+            <td class="col_name_a">departure:</td>
+            <td class="col_name_b">arrival:</td>
+          </tr>
+        <% @flights.each do |flight| %>
+        <% i += 1 %>
+          <tr>
+            <td class="<%= background.call(i) %>"><%= flight.code %></td>
+            <td class="<%= background.call(i + 1) %>"><%= flight.from.name %></td>
+            <td class="<%= background.call(i) %>"><%= flight.to.name %></td>
+            <td class="<%= background.call(i + 1) %>"><%= flight.duration %></td>
+            <td class="<%= background.call(i) %>"><%= flight.departure %></td>
+            <td class="<%= background.call(i + 1) %>"><%= flight.arrival %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

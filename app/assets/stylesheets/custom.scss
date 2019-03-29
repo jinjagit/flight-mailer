@@ -1,0 +1,250 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* mixins, variables, etc. */
+
+$white: white;
+$basic_purple: #733e91;
+$opacity-purple: #410066;
+$medium_purple: #be65f2;
+$dark-blue: #0046a8;
+$light-blue: #c9dfff;
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* universal */
+
+body {
+  background-color: $light-blue;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-top: 60px;
+  ul {
+    display: inline-block;
+  }
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  color: $dark-blue;
+}
+
+h1 {
+  font-size: 4em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2.5em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 2em;
+}
+
+h4 {
+  font-size: 4em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: $basic_purple;
+}
+
+h5 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+  color: $opacity-purple;
+}
+
+
+/* header */
+
+header {
+  background-color: $dark-blue !important;
+  border-style: solid;
+  border-bottom-width: 7px !important;
+  border-color: $white !important;
+}
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: $white;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+  &:hover {
+    color: $light-blue;
+    text-decoration: none;
+  }
+}
+
+#link {
+  color: #d2d6db;
+  &:hover {
+    color: $white;
+  }
+}
+
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #be65f2;
+  width: 100%;
+  margin-bottom: 15px;
+  border-color: $dark-blue !important;
+  //@include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  background-color: $white;
+  opacity: 0.5;
+  @include box_sizing;
+}
+
+.box {
+  display: block;
+  width: 800px;
+  background-color: $white;
+  opacity: 0.75;
+  margin: 3% auto;
+  border-style: solid;
+  border-width: 3px;
+  border-color: $dark-blue;
+  border-radius: 10px;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: $basic_purple !important;
+    border-color: $dark-blue;
+}
+
+.btn-primary:hover {
+  background-color: #9b52c4 !important;
+  border-color: $dark-blue;
+}
+
+table {
+  width: 100%;
+  font-size: 1.3em;
+}
+
+.table_spacer {
+  margin: 3%;
+}
+
+.data_a {
+  background-color: $light-blue;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $white;
+}
+
+.data_b {
+  background-color: #ddecff;
+  text-align: center;
+}
+
+.col_name_a {
+  background-color: $dark-blue;
+  color: $white;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $white;
+}
+
+.col_name_b {
+  background-color: #0056ce;
+  color: $white;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px 0px;
+  border-color: $white;
+}
+
+.select_a {
+  background-color: #ffff7a;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $white;
+}
+
+.select_b {
+  background-color: #fcfcb8;
+  text-align: center;
+}
+
+.dropdown {
+  width: 65%;
+}
+
+.field {
+  background-color: #ddd;
+}
+
+/* misc */
+
+#icon_div {
+  vertical-align: middle;
+  text-align:center;
+}
+
+#github_icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 75px;
+  background-color: #333;
+}
+
+#github_icon:hover {
+  background-color: #666;
+}

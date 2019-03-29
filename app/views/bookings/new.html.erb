@@ -1,0 +1,32 @@
+<% provide(:title, 'Passengers') %>
+<% @flight = @booking.flight %>
+<h1 style="float:center;margin: 40px 0px 0px 36px;">Passenger Details</h1>
+<div class="box">
+  <h5 style="text-align:center;margin-top:3%;">Summary:</h5>
+  <h5 style="text-align:center;margin-top:3%;"><%= "From: #{@flight.from.name}" %></h5>
+  <h5 style="text-align:center;"><%= "To: #{@flight.to.name}" %></h5>
+  <h5 style="text-align:center;"><%= "Date: #{@booking.date}" %></h5>
+  <h5 style="text-align:center;"><%= "Number of passengers: #{params[:passenger_count]}" %></h5>
+  <br><br>
+  <h5 style="text-align:center;">Enter passenger details:</h5>
+  <br>
+  <div style="display:inline-block;width:20%;"></div>
+  <div style="display:inline-block;width:60%;">
+    <%= form_for @booking do |f| %>
+      <% @passenger_count.times do |i| %>
+        <%= fields_for :passengers, @booking.passenger do |p| %>
+          <h5 class="Label">Passenger <%= i + 1 %></h5>
+          <%= f.label :"name#{i + 1}", 'Name' %>
+          <%= p.text_field :"name#{i + 1}", required: true %>
+          <%= f.label :"name#{i + 1}", 'Email' %>
+          <%= p.email_field :"email#{i + 1}", required: true %>
+        <% end %>
+      <% end %>
+      <%= f.hidden_field :flight_id, value: @flight.id %>
+      <%= f.hidden_field :passenger_count, value: @passenger_count %>
+      <%= f.hidden_field :date, value: @booking.date %>
+      <h5 style="width:40%;margin-left:30%;"><%= f.submit "Submit details", class: "Button" %></h5>
+    <% end %>
+  </div>
+  <div style="display:inline-block;width:20%;"></div>
+</div>
