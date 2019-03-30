@@ -8,10 +8,11 @@ class BookingsController < ApplicationController
     if params.has_key?(:flight_select) == false
       flash[:error_select] = true
       redirect_to flights_path(session[:saved_search])
+    else
+      @passenger_count = params[:passenger_count].to_i
+      @date = verbose_date(params[:flight_date])
+      @booking = Booking.new(flight: Flight.find_by(id: params[:flight_select][:flight_id]), date: params[:flight_date])
     end
-    @passenger_count = params[:passenger_count].to_i
-    @date = verbose_date(params[:flight_date])
-    @booking = Booking.new(flight: Flight.find_by(id: params[:flight_select][:flight_id]), date: params[:flight_date])
   end
 
   def create
