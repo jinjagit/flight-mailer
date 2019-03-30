@@ -19,15 +19,17 @@ class BookingsController < ApplicationController
     @new_bookings = []
 
     @passenger_count.times do |i|
+      @name = params[:passengers][:"name#{i + 1}"]
+      @email = params[:passengers][:"email#{i + 1}"]
       @booking = Booking.new(
         flight_id: params[:booking][:flight_id],
         date: params[:booking][:date],
-        passenger_attributes: {name:  params[:passengers][:"name#{i + 1}"],
-                               email: params[:passengers][:"email#{i + 1}"]})
+        passenger_attributes: {name:  @name, email: @email})
       @booking.save
+      PassengerMailer.with(name: @name, email: @email).booking_email.deliver_later
       @new_bookings << @booking
     end
-    flash[:notice] = "Booking successful!"
-    redirect_to controller: 'bookings', action: 'index', bookings: @new_bookings
+    #flash[:notice] = "Booking successful!"
+    #redirect_to controller: 'bookings', action: 'index', bookings: @new_bookings
   end
 end
