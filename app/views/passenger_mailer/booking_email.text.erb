@@ -1,8 +1,18 @@
-Welcome to example.com, <%= @name %>
+Congratulations, <%= @name %>!
 ===============================================
 
-You have successfully booked your flight!
+You have successfully booked your flight with Dream Flights!
+<% @flight = Flight.find_by(id: @booking.flight_id) %>
+Details:
+------------------------------------------------
+Booking reference: <%= "DFBN" + @booking.id.to_s %>
+Passenger name: <%= @name %>
+Departure from: <%= @flight.from.name %>
+Destination: <%= @flight.to.name %>
+Departure date: <%= @booking.date %>
+Departure time: <%= @flight.departure %>
+Arrival time: <%= @flight.arrival %>
+Flight duration: <%= @flight.duration %>
+------------------------------------------------
 
-Blah blah blah
-
-Have agreat flight!
+Have a great flight!

@@ -4,13 +4,22 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @name %></h1>
-    <p>
-      You have successfully booked your flight!
-    </p>
-    <p>
-      Blah blah blah
-    </p>
+    <% @flight = Flight.find_by(id: @booking.flight_id) %>
+    <h1>Congratulations, <%= @name %>!</h1>
+    <p>You have successfully booked your flight with Dream Flights!</p>
+    <br>
+    <p>Details:</p>
+    <p>------------------------------------------------<p>
+    <p>Booking reference: <%= "DFBN" + @booking.id.to_s %><p>
+    <p>Passenger name: <%= @name %></p>
+    <p>Departure from: <%= @flight.from.name %></p>
+    <p>Destination: <%= @flight.to.name %></p>
+    <p>Departure date: <%= @booking.date %></p>
+    <p>Departure time: <%= @flight.departure %></p>
+    <p>Arrival time: <%= @flight.arrival %></p>
+    <p>Flight duration: <%= @flight.duration %></p>
+    <p>------------------------------------------------<p>
+    <br>
     <p>Have a great flight!</p>
   </body>
 </html>

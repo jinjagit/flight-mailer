@@ -26,10 +26,10 @@ class BookingsController < ApplicationController
         date: params[:booking][:date],
         passenger_attributes: {name:  @name, email: @email})
       @booking.save
-      PassengerMailer.with(name: @name, email: @email).booking_email.deliver_later
+      PassengerMailer.with(name: @name, email: @email, booking: @booking).booking_email.deliver_later
       @new_bookings << @booking
     end
-    #flash[:notice] = "Booking successful!"
-    #redirect_to controller: 'bookings', action: 'index', bookings: @new_bookings
+    flash[:notice] = "Booking successful!"
+    redirect_to controller: 'bookings', action: 'index', bookings: @new_bookings
   end
 end
