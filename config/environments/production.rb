@@ -20,13 +20,12 @@ Rails.application.configure do
   host = 'afternoon-beach-53868.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.smtp_settings = {
-    :user_name => ENV['SENDGRID_USERNAME'],
-    :password => ENV['SENDGRID_PASSWORD'],
-    :domain => 'heroku.com',
-    :address => 'smtp.sendgrid.net',
-    :port => 587,
+    :port           => ENV['MAILGUN_SMTP_PORT'],
+    :address        => ENV['MAILGUN_SMTP_SERVER'],
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    :domain         => 'afternoon-beach-53868.heroku.com',
     :authentication => :plain,
-    :enable_starttls_auto => true
   }
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
